@@ -6,7 +6,7 @@
 /*   By: miloalex <miloalex@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 20:45:27 by miloalex          #+#    #+#             */
-/*   Updated: 2026/07/30 21:30:14 by miloalex         ###   ########.fr       */
+/*   Updated: 2026/08/08 16:07:54 by miloalex         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,29 @@ t_stack	*new_node(int value)
 	return (node);
 }
 
-void	check_dup(t_stack *a, int value)
+int	check_dup(t_stack *a, int value)
 {
 	t_stack *temp;
-	if (a)
-		printf("a value: %d\n", a->value);
+	// if (a)
+	// 	printf("a value: %d\n", a->value);
 	if (!a)
 	{
 		printf("wtf\n");
-		return ;
+		return (0);
 	}
 	temp = a;
 	while (1)
 	{
 		if (temp->value == value)
 		{
-			printf("duplicate number");
-			return ;
+			printf("duplicate number\n");
+			return (0);
 		}
 		temp = temp->next;
 		if (temp == a)
 			break ;
 	}
+	return (1);
 }
 
 void	add_to_stacktail(t_stack **head, t_stack *new)
@@ -85,10 +86,12 @@ void	fill_stack_a(t_data *data, char **argv, int argc)
 		new = new_node((int)value);
 		if (!new)
 			return ;
-		check_dup(data->a, (int)value);
-		printf("succesfull!\n");
+		if (!check_dup(data->a, (int)value))
+			printf("oh no!\n");
+		// printf("succesfull!\n");
 		add_to_stacktail(&data->a, new);
 		data->a_size++;
 		i++;
 	}
 }
+
