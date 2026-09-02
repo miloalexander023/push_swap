@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sa.c                                               :+:      :+:    :+:   */
+/*   swap_12.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miloalex <miloalex@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 23:32:47 by miloalex          #+#    #+#             */
-/*   Updated: 2026/08/06 15:39:18 by miloalex         ###   ########.fr       */
+/*   Updated: 2026/08/24 16:29:11 by miloalex         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_data	*sa(t_data *s)
 	temp_1->next = next;
 	next->prev = temp_1;
 	s->a = temp_2;
-	printf("sa\n");
+	// printf("sa\n");
 	return (s);
 }
 
@@ -54,7 +54,7 @@ t_data	*sb(t_data *s)
 	temp_1->next = next;
 	next->prev = temp_1;
 	s->b = temp_2;
-	printf("sb\n");
+	// printf("sb\n");
 	return (s);
 }
 
@@ -62,5 +62,6 @@ t_data *ss(t_data *s)
 {
 	sa(s);
 	sb(s);
+	// printf("ss\n");
 	return (s);
 }

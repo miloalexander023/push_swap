@@ -6,7 +6,7 @@
 /*   By: miloalex <miloalex@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 16:42:26 by miloalex          #+#    #+#             */
-/*   Updated: 2026/08/13 22:17:42 by miloalex         ###   ########.fr       */
+/*   Updated: 2026/08/24 16:20:23 by miloalex         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	printlist(t_stack *head)
 {
-	t_stack *temp;
-	
+	t_stack	*temp;
+
 	if (!head)
 		return ;
 	temp = head;
@@ -29,29 +29,44 @@ void	printlist(t_stack *head)
 	}
 }
 
-long    ft_atol_checked(const char *str)
+int	check_sign(const char *str)
 {
-    long    result;
-    int     sign;
+	int	sign;
 
-    result = 0;
-    sign = 1;
-    while (*str == ' ' || (*str >= 9 && *str <= 13))
-        str++;
-    if (*str == '-' || *str == '+')
-        sign = (*str++ == '-') ? -1 : 1;
-    if (!*str)
-        return (0);
-    while (*str)
-    {
-        if (*str < '0' || *str > '9')
-            return (0);
-        result = result * 10 + (*str - '0');
-        if (result * sign > INT_MAX || result * sign < INT_MIN)
-            return (0);
-        str++;
-    }
-    return (result * sign);
+	sign = 1;
+	if (*str == '-')
+		sign = -1;
+	if (*str == '+')
+		sign = 1;
+	return (sign);
+}
+
+long	ft_atol_checked(const char *str)
+{
+	long	result;
+	int		sign;
+
+	result = 0;
+	sign = 1;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		sign = check_sign(str);
+		str++;
+	}
+	if (!*str)
+		return (0);
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+			return (0);
+		result = result * 10 + (*str - '0');
+		if (result * sign > INT_MAX || result * sign < INT_MIN)
+			return (0);
+		str++;
+	}
+	return (result * sign);
 }
 
 int	is_sorted(t_data *s)
@@ -59,12 +74,12 @@ int	is_sorted(t_data *s)
 	t_stack	*temp;
 
 	temp = s->a;
-	if(!s)
+	if (!s)
 		return (0);
 	while (temp->next->value != s->a->value)
-	{	
+	{
 		if (temp->value > temp->next->value)
-			return (0);		
+			return (0);
 		temp = temp->next;
 	}
 	return (1);
@@ -72,10 +87,8 @@ int	is_sorted(t_data *s)
 
 int	main(int argc, char **argv)
 {
-	t_data data;
-	t_stack *temp1;
-	t_stack *temp2;
-	int i;
+	t_data	data;
+	int		i;
 
 	i = 0;
 	if (argc == 1 || argc == 2)
@@ -84,60 +97,16 @@ int	main(int argc, char **argv)
 	data.b = NULL;
 	data.a_size = 0;
 	data.b_size = 0;
+	data.moves = 0;
 	fill_stack_a(&data, argv, argc);
+	if (is_sorted(&data))
+		return (printf("ALREADY SORTED!!!!\n"), 0);
 	determin_index(&data);
-	// printf("stack_a\n");
-	// printlist(data.a);
-	pb(&data);
-	pb(&data);
-	pb(&data);
-	pb(&data);
-	pb(&data);
-	pb(&data);
-
-	update_pos(&data, 'a');
-	//turk_sort(&data)
-	temp2 = data.b;
-	temp1 = data.a;
-	i = 0;
-	update_pos(&data, 'b');
-	// printlist(data.b);
-	find_targetnumber(&data);
-	rotation_cost(&data);
-	// printf("stack_a\n");
-	// printlist(data.a);
-	while (i < data.a_size)
-	{
-		printf("value: %d		cost: %d		pos: %d		target: %d\n", temp1->value, temp1->cost, temp1->pos, temp1->target);
-		temp1 = temp1->next;
-		i++;
-	}
-	i = 0;
-	printf("\nstack_b\n");
-	printlist(data.b);
-	while (i < data.b_size)
-	{
-		printf("value: %d		cost: %d		pos: %d\n", temp2->value, temp2->cost, temp2->pos);
-		temp2 = temp2->next;
-		i++;
-	}
-	// free_stack(&data.a);
-	// free_stack(&data.b);
+	turk_sort(&data);
+	printlist(data.a);
+	if (!is_sorted(&data))
+		printf("STILL NOT SORTED!!!!\n");
+	else
+		printf("SORTED!!!!\n");
 	return (0);
 }
-
-
-
-// ra(&data);
-// printf("stack_a\n");
-// printlist(data.a);
-// rra(&data);
-// printf("hello\n");
-// printf("stack_a\n");
-// printlist(data.a);
-// rb(&data);;
-// printf("stack_b\n");
-// printlist(data.b);
-// rrb(&data);
-// printf("stack_b\n");
-// printlist(data.b);

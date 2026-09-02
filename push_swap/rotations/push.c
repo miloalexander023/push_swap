@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pa.c                                               :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miloalex <miloalex@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 15:55:36 by miloalex          #+#    #+#             */
-/*   Updated: 2026/08/06 14:59:32 by miloalex         ###   ########.fr       */
+/*   Updated: 2026/08/24 16:28:07 by miloalex         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
+#include "../printf.h"
 
-t_data *pa(t_data *s)
+t_data	*pa(t_data *s)
 {
 	t_stack	*first;
 	
@@ -23,33 +24,22 @@ t_data *pa(t_data *s)
 		s->b = NULL;
 	else
 	{
-		first->next = s->a;
-		first->prev = s->a->prev;
-		first->next->prev = first;
+		s->b = first->next;
+		first->prev->next = first->next;
+		first->next->prev = first->prev;
 	}
-	if(!s->a)
-	{
-		first->next = first;
-		first->prev = first;
-		s->a = first;
-	}
-	else
-	{
-		first->next = s->a;
-		first->prev = s->a->prev;
-		s->a->prev->next = first;
-		s->a->next->prev = first;
-		s->a = first;
-	}
+	fix_head_a(s->a, first);
+	s->a = first;
 	s->b_size--;
 	s->a_size++;
-	printf("pa\n");
+	s->moves++;
+	// printf("pa\n");
 	return (s);
 }
 
-t_data *pb(t_data *s)
+t_data	*pb(t_data *s)
 {
-	t_stack *first;
+	t_stack	*first;
 
 	if (!s->a)
 		return (s);
@@ -62,22 +52,43 @@ t_data *pb(t_data *s)
 		s->a->prev = first->prev;
 		first->prev->next = s->a;
 	}
-	if (!s->b)
+	fix_head_b(s->b, first);
+	s->b = first;
+	s->a_size--;
+	s->b_size++;
+	s->moves++;
+	// printf("pb\n");
+	return (s);
+}
+
+void	fix_head_a(t_stack *a, t_stack *first)
+{
+	if (!a)
 	{
 		first->next = first;
 		first->prev = first;
-		s->b = first;
 	}
 	else
 	{
-		first->next = s->b;
-		first->prev = s->b->prev;
-		s->b->prev->next = first;
-		s->b->prev = first;
-		s->b = first;
+		first->next = a;
+		first->prev = a->prev;
+		a->prev->next = first;
+		a->prev = first;
 	}
-	s->a_size--;
-	s->b_size++;
-	printf("pb\n");
-	return (s);
+}
+
+void	fix_head_b(t_stack *b, t_stack *first)
+{
+	if (!b)
+	{
+		first->next = first;
+		first->prev = first;
+	}
+	else
+	{
+		first->next = b;
+		first->prev = b->prev;
+		b->prev->next = first;
+		b->prev = first;
+	}
 }

@@ -6,16 +6,16 @@
 /*   By: miloalex <miloalex@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/30 20:45:27 by miloalex          #+#    #+#             */
-/*   Updated: 2026/08/08 16:07:54 by miloalex         ###   ########.fr       */
+/*   Updated: 2026/08/24 16:23:29 by miloalex         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "ft_libft/libft.h"
+#include "../libftprintf.a/ft_printf.h"
 
 t_stack	*new_node(int value)
 {
-	t_stack *node;
+	t_stack	*node;
 
 	node = malloc(sizeof(t_stack));
 	if (!node)
@@ -32,14 +32,10 @@ t_stack	*new_node(int value)
 
 int	check_dup(t_stack *a, int value)
 {
-	t_stack *temp;
-	// if (a)
-	// 	printf("a value: %d\n", a->value);
+	t_stack	*temp;
+
 	if (!a)
-	{
-		printf("wtf\n");
 		return (0);
-	}
 	temp = a;
 	while (1)
 	{
@@ -57,7 +53,7 @@ int	check_dup(t_stack *a, int value)
 
 void	add_to_stacktail(t_stack **head, t_stack *new)
 {
-	t_stack *tail;
+	t_stack	*tail;
 
 	if (!*head)
 	{
@@ -75,23 +71,21 @@ void	add_to_stacktail(t_stack **head, t_stack *new)
 
 void	fill_stack_a(t_data *data, char **argv, int argc)
 {
-	int i;
-	long value;
-	t_stack *new;
+	int		i;
+	long	value;
+	t_stack	*new;
 
 	i = 1;
 	while (i < argc)
 	{
-		value = ft_atoi(argv[i]);
+		value = ft_atol_checked(argv[i]);
 		new = new_node((int)value);
 		if (!new)
 			return ;
 		if (!check_dup(data->a, (int)value))
 			printf("oh no!\n");
-		// printf("succesfull!\n");
 		add_to_stacktail(&data->a, new);
 		data->a_size++;
 		i++;
 	}
 }
-
