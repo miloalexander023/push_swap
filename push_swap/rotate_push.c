@@ -6,7 +6,7 @@
 /*   By: miloalex <miloalex@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 17:57:56 by miloalex          #+#    #+#             */
-/*   Updated: 2026/08/24 16:26:56 by miloalex         ###   ########.fr       */
+/*   Updated: 2026/09/04 18:18:39 by miloalex         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_data	*rotate_push(t_data *s, t_stack *push_nbr)
 {
 	t_stack	*b;
 
-	if (push_nbr->value == 498)
+	if (push_nbr->value == 500)
 		printf("push_nbr: %d,   target_nbr: %d\n", push_nbr->value, push_nbr->target);
 	b = find_target(s->b, push_nbr->target);
 	if (push_nbr->cost == 0 && b->cost == 0)

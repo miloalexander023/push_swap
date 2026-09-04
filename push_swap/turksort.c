@@ -6,7 +6,7 @@
 /*   By: miloalex <miloalex@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 17:12:51 by miloalex          #+#    #+#             */
-/*   Updated: 2026/09/02 17:56:46 by miloalex         ###   ########.fr       */
+/*   Updated: 2026/09/04 18:19:59 by miloalex         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	sort_stack_of_3(t_data *s)
 		rra(s);
 	else if (b < c && c < a)
 		ra(s);
-	else if (c < b  & b < a)
+	else if (c < b && b < a)
 	{
 		sa(s);
 		rra(s);
@@ -129,6 +129,13 @@ t_data	*turk_sort(t_data *s)
 	{
 		pb(s);
 		pb(s);
+		if (s->b->value < s->b->next->value)
+		{
+			printf("b->value: %d\n", s->b->value);
+			printf("b->next->value: %d\n", s->b->next->value);
+
+			sb(s);
+		}
 	}
 	while(s->a_size > 3)
 	{

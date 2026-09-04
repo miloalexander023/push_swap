@@ -6,7 +6,7 @@
 /*   By: miloalex <miloalex@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/08 16:18:48 by miloalex          #+#    #+#             */
-/*   Updated: 2026/09/02 18:06:34 by miloalex         ###   ########.fr       */
+/*   Updated: 2026/09/04 18:39:53 by miloalex         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_target_a(t_data *s, t_stack *temp_a)
 	temp_b = s->b;
 	target = temp_b->value;
 	j = 0;
-	while (j != s->b_size)
+	while (j < s->b_size)
 	{
 		if (temp_a->value > temp_b->value
 			&& temp_a->value < temp_b->prev->value)
@@ -34,8 +34,7 @@ int	check_target_a(t_data *s, t_stack *temp_a)
 		temp_b = temp_b->next;
 		j++;
 	}
-	printf("a_value: %d,   target_nbr: %d\n", temp_a->value, target);
-
+	// printf("a_value: %d,   target_nbr: %d\n", temp_a->value, target);
 	return (target);
 }
 
@@ -56,8 +55,8 @@ void	find_targetnumber_a(t_data *s)
 {
 	t_stack	*temp_a;
 
-	temp_a = s->a;
 	if (!s || !s->b || s->a_size == 0)
 		return ;
+	temp_a = s->a;
 	target_loop_a(s, temp_a);
 }

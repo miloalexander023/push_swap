@@ -6,7 +6,7 @@
 /*   By: miloalex <miloalex@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 21:05:15 by miloalex          #+#    #+#             */
-/*   Updated: 2026/08/23 21:05:38 by miloalex         ###   ########.fr       */
+/*   Updated: 2026/09/04 18:33:40 by miloalex         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	r_cost_a(t_data *s)
 		if(temp->pos <= s->a_size / 2)
 			temp->cost = temp->pos;
 		else
-			temp->cost = -1 * (s->a_size - temp->pos);
+			temp->cost = -(s->a_size - temp->pos);
 		temp = temp->next;
 		i++;
 	}
@@ -50,7 +50,7 @@ void	r_cost_b(t_data *s)
 		if(temp->pos <= s->b_size / 2)
 			temp->cost = temp->pos;
 		else
-			temp->cost = -1 * (s->b_size - temp->pos);
+			temp->cost = -(s->b_size - temp->pos);
 		temp = temp->next;
 		i++;
 	}

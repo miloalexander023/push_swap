@@ -6,7 +6,7 @@
 /*   By: miloalex <miloalex@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/08 16:18:48 by miloalex          #+#    #+#             */
-/*   Updated: 2026/09/02 18:17:15 by miloalex         ###   ########.fr       */
+/*   Updated: 2026/09/04 18:13:31 by miloalex         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_target_b(t_data *s, t_stack *temp_b)
 		temp_a = temp_a->next;
 		j++;
 	}
-	printf("a_value: %d,   target_nbr: %d\n", temp_a->value, target);
+	// printf("a_value: %d,   target_nbr: %d\n", temp_a->value, target);
 
 	return (target);
 }
