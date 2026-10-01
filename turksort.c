@@ -1,0 +1,117 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   turksort.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miloalex <miloalex@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/13 17:12:51 by miloalex          #+#    #+#             */
+/*   Updated: 2026/09/17 23:15:20 by miloalex         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+void	sort_stack_of_3(t_data *s)
+{
+	int	a;
+	int	b;
+	int	c;
+
+	a = s->a->value;
+	b = s->a->next->value;
+	c = s->a->next->next->value;
+	if (a < b && b < c)
+		return ;
+	else if (a < c && c < b)
+	{
+		sa(s);
+		ra(s);
+	}
+	else if (b < a && a < c)
+		sa(s);
+	else if (c < a && a < b)
+		rra(s);
+	else if (b < c && c < a)
+		ra(s);
+	else if (c < b && b < a)
+	{
+		sa(s);
+		rra(s);
+	}
+}
+
+void	push_back_to_a(t_data *s)
+{
+	int	target_pos;
+
+	while (s->b_size > 0)
+	{
+		update_pos(s, 'a');
+		update_pos(s, 'b');
+		target_pos = find_target_pos(s);
+		rotate_a_to_pos(s, target_pos);
+		pa(s);
+	}
+}
+
+void	rotate_a_to_pos(t_data *s, int target_pos)
+{
+	if (target_pos <= s->a_size / 2)
+	{
+		while (target_pos > 0)
+		{
+			ra(s);
+			target_pos--;
+		}
+	}
+	else
+	{
+		target_pos = s->a_size - target_pos;
+		while (target_pos > 0)
+		{
+			rra(s);
+			target_pos--;
+		}
+	}
+}
+
+void	push_till_a_3(t_data *s)
+{
+	if (s->a_size > 3)
+	{
+		pb(s);
+		pb(s);
+		if (s->b->value < s->b->next->value)
+			sb(s);
+	}
+}
+
+t_data	*turk_sort(t_data *s)
+{
+	t_stack	*push_nbr;
+	int		i;
+
+	i = 0;
+	if (!s || !s->a)
+		return (NULL);
+	if (is_sorted(s))
+		return (s);
+	push_till_a_3(s);
+	while (s->a_size > 3)
+	{
+		update_pos(s, 'a');
+		update_pos(s, 'b');
+		find_targetnumber_a(s);
+		rotation_cost(s);
+		push_nbr = cheapest(s);
+		rotate_push(s, push_nbr);
+	}
+	if (s->a_size == 3)
+		sort_stack_of_3(s);
+	update_pos(s, 'a');
+	update_pos(s, 'b');
+	push_back_to_a(s);
+	final_rotations(s);
+	return (s);
+}
